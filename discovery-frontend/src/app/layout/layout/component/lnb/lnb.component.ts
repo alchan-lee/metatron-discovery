@@ -86,7 +86,8 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
     managementMetadata: false,
     userAdmin: false,
     workspaceAdmin: false,
-    lineage: false
+    lineage: false,
+    applications: true
   };
 
   // lnb 플래그
@@ -121,6 +122,11 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
       dataPreparation: {fold: true},
       dataMonitoring: {fold: true},
       modelManager: {fold: true}
+    },
+    // APM
+    apps: {
+      fold: true,
+      apm : { fold: true }
     },
     // 어드민
     administration: {
@@ -305,12 +311,14 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
         this.lnbManager.exploreData.fold = true;
         this.lnbManager.management.fold = true;
         this.lnbManager.administration.fold = true;
+        this.lnbManager.apps.fold = true;
         break;
       case 'EXPLOREDATA' :
         this.lnbManager.workspace.fold = true;
         this.lnbManager.exploreData.fold = false;
         this.lnbManager.management.fold = true;
         this.lnbManager.administration.fold = true;
+        this.lnbManager.apps.fold = true;
         this.exploreDataMenuClickListener('EXPLOREDATA_VIEW');
         break;
       case 'MANAGEMENT' :
@@ -318,13 +326,23 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
         this.lnbManager.exploreData.fold = true;
         this.lnbManager.management.fold = false;
         this.lnbManager.administration.fold = true;
+        this.lnbManager.apps.fold = true;
         this.mgmtMenuClickListener('DATASTORAGE');
+        break;
+      case 'APPLICATIONS' :
+        this.lnbManager.workspace.fold = true;
+        this.lnbManager.exploreData.fold = true;
+        this.lnbManager.management.fold = true;
+        this.lnbManager.administration.fold = true;
+        this.lnbManager.apps.fold = false;
+        this.appsMenuClickListener('APPLICATIONS_APM');
         break;
       case 'ADMINISTRATION' :
         this.lnbManager.workspace.fold = true;
         this.lnbManager.exploreData.fold = true;
         this.lnbManager.management.fold = true;
         this.lnbManager.administration.fold = false;
+        this.lnbManager.apps.fold = true;
         this.adminMenuClickListener('USER');
         break;
     }
@@ -357,9 +375,9 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
     this.lnbManager.management.dataPreparation.fold = true;
     this.lnbManager.management.dataMonitoring.fold = true;
     this.lnbManager.management.modelManager.fold = true;
-    this.getManagementExtensions.forEach(item => {
-      this.lnbManager.management[item.name]['fold'] = true;
-    });
+    // this.getManagementExtensions.forEach(item => {
+    //   this.lnbManager.management[item.name]['fold'] = true;
+    // });
 
     switch (menuName) {
       case 'METADATA' :
@@ -377,12 +395,32 @@ export class LNBComponent extends AbstractComponent implements OnInit, OnDestroy
       case 'MODELMANAGER' :
         this.lnbManager.management.modelManager.fold = false;
         break;
+      // default :
+      //   if (this.lnbManager.management[menuName]) {
+      //     this.lnbManager.management[menuName]['fold'] = false;
+      //   }
+    }
+  } // function - mgmtMenuClickListener
+
+  /**
+   * Applications 하위 메뉴 클릭 이벤트 리스너
+   * @param menuName
+   */
+  public appsMenuClickListener(menuName:string) {
+    this.lnbManager.apps.apm.fold = true;
+    this.getManagementExtensions.forEach(item => {
+      this.lnbManager.management[item.name]['fold'] = true;
+    });
+    switch (menuName) {
+      case 'APPLICATIONS_APM' :
+        this.lnbManager.apps.apm.fold = false;
+        break;
       default :
         if (this.lnbManager.management[menuName]) {
           this.lnbManager.management[menuName]['fold'] = false;
         }
     }
-  } // function - mgmtMenuClickListener
+  } // function - appsMenuClickListener
 
   /**
    * Administration 하위 메뉴 클릭 이벤트 리스너

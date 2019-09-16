@@ -254,19 +254,19 @@
                 </li>
               </ul>
             </li>
-            <ng-container *ngIf="permission.managementDatasource">
-              <li *ngFor="let item of getManagementExtensions"
-                  [ngClass]="{'ddp-selected': lnbManager.management[item.name]['fold'] == false}">
-                <a href="javascript:" (click)="mgmtMenuClickListener(item.name)">
-                  <em class="ddp-icon-dot"></em> {{item.name}}
-                </a>
-                <ul class="ddp-list-sublnb-2depth">
-                  <li *ngFor="let subKey of ObjectKeys(item.subContents)">
-                    <a href="javascript:" (click)="move('external/' + item.parent + '_' + item.name + '_' + subKey)">{{subKey}}</a>
-                  </li>
-                </ul>
-              </li>
-            </ng-container>
+            <!--<ng-container *ngIf="permission.managementDatasource">-->
+              <!--<li *ngFor="let item of getManagementExtensions"-->
+                  <!--[ngClass]="{'ddp-selected': lnbManager.management[item.name]['fold'] == false}">-->
+                <!--<a href="javascript:" (click)="mgmtMenuClickListener(item.name)">-->
+                  <!--<em class="ddp-icon-dot"></em> {{item.name}}-->
+                <!--</a>-->
+                <!--<ul class="ddp-list-sublnb-2depth">-->
+                  <!--<li *ngFor="let subKey of ObjectKeys(item.subContents)">-->
+                    <!--<a href="javascript:" (click)="move('external/' + item.parent + '_' + item.name + '_' + subKey)">{{subKey}}</a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</li>-->
+            <!--</ng-container>-->
           </ul>
           <!-- //submenu -->
         </div>
@@ -324,6 +324,51 @@
       </div>
     </li>
     <!-- //ADMINSTRATION -->
+    <!-- APM -->
+    <li *ngIf="permission.applications" [ngClass]="{'ddp-selected': lnbManager.apps.fold == false}" >
+      <div class="ddp-wrap-listmenu">
+        <a href="javascript:" (click)="depth1Menu1ClickListener( 'APPLICATIONS' )">
+          <span class="ddp-txt-lnbmenu">{{'msg.comm.menu.title.aplications' | translate}}</span>
+          <em class="ddp-icon-menuview"></em>
+        </a>
+        <!-- sub -->
+        <div class="ddp-list-sub">
+          <!-- submenu -->
+          <ul class="ddp-list-sublnb">
+            <li *ngIf="permission.applications" [ngClass]="{'ddp-selected': lnbManager.apps.apm.fold == false}">
+              <a href="javascript:" (click)="appsMenuClickListener('APPLICATION_APM')">
+                <em class="ddp-icon-dot"></em>
+                {{'msg.comm.menu.title.aplications.apm' | translate}}
+              </a>
+              <ul class="ddp-list-sublnb-2depth">
+                <li>
+                  <a href="http://52.231.75.233:8090/app/asset/list" target="_blank">{{'msg.comm.menu.title.aplications.explore' | translate}}</a>
+                </li>
+                <li>
+                  <a href="http://52.231.75.233:8090/app/dashboard/overview" target="_blank">{{'msg.comm.menu.title.aplications.dashboard' | translate}}</a>
+                </li>
+              </ul>
+            </li>
+            <ng-container *ngIf="permission.applications">
+              <li *ngFor="let item of getManagementExtensions"
+                  [ngClass]="{'ddp-selected': lnbManager.management[item.name]['fold'] == false}">
+                <a href="javascript:" (click)="appsMenuClickListener(item.name)">
+                  <em class="ddp-icon-dot"></em> {{item.name}}
+                </a>
+                <ul class="ddp-list-sublnb-2depth">
+                  <li *ngFor="let subKey of ObjectKeys(item.subContents)">
+                    <a href="javascript:" (click)="move('external/' + item.parent + '_' + item.name + '_' + subKey)">{{subKey}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+          <!-- //submenu -->
+        </div>
+        <!-- //sub -->
+      </div>
+    </li>
+    <!-- // APM -->
   </ul>
 
   <!-- help -->
