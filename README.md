@@ -74,11 +74,11 @@ Installation
 ### Requirements
 - MacOS / Linux (Redhat, CentOS)
 - JDK 1.8
-- Apache Maven 3.3+ for building the project
 - **Druid customized version for Metatron**
   - [Here is the link for downloading the archive.](https://sktmetatronkrsouthshared.blob.core.windows.net/metatron-public/discovery-dist/latest/druid-0.9.1-latest-hadoop-2.7.3-bin.tar.gz)
   - To install the Metatron distributed Druid, simply untar the downloaded archive. And start | stop the druid with the following commands.
   <pre><code> $ start-single.sh | stop-single.sh </code></pre>
+- (Optional) Apache Maven 3.3+ for building the project
 
 ### Install Metatron Discovery
 There is two way to get the running binary file.
